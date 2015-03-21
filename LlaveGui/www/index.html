@@ -22,46 +22,71 @@
     <script src="js/app.js"></script>
   </head>
   <body ng-app="starter">
-
-    <ion-pane>
-   	  <ion-header-bar class="bar-positive">
-        <h1 class="title">LLave GUI</h1>
-	  	<button class="button icon ion-loop" style="background-color:red"></button>
-      </ion-header-bar>
-
-	  <ion-content> 
+		
 		<div ng-controller="LoginController as login">	
-          <div class="card" ng-show="login.showLogin">
-			<form name="loginForm"
-            ng-submit="login.log()">
-			    <fieldset class="form-group">
-					<textarea ng-model="login.logRequest.nick" 
-					class="form-control"
-					placeholder="Aqui tu nick..."
-					title="Nick"></textarea>
-				</fieldset>
-			    <fieldset class="form-group">
-					<textarea ng-model="login.logRequest.passwd" 
-					class="form-control"
-					placeholder="Aqui tu pass..."
-					title="Password"></textarea>
-				</fieldset>
-				<fieldset class="form-group">
-				    <input type="submit" 
-					class="btn btn-primary pull-right" 
-					value="Login" />
-				</fieldset>
-			</form>
-		  </div>
-          <div class="card" ng-show="login.showLogin">
-            <div class="item item-text-wrap">
-				<h2> Usuario : {{login.user}} </h2>
-				<h2> Password : {{login.passwd}} </h2>
-				<h3> Resultado : {{login.res}} </h3>
-	        </div>
-		  </div>
-        </div>
-      </ion-content>
-    </ion-pane>
+    	<ion-pane>
+   	  	<ion-header-bar class="bar-positive">
+      	  <h1 class="title">LLave GUI</h1>
+	  			<button class="button icon ion-loop" 
+					style="background-color:red"
+					ng-hide="login.showLogin"
+					ng-click="login.whoOwn()"></button>
+      	</ion-header-bar>
+
+	  		<ion-content> 
+      		<div ng-show="login.showLogin">
+        		<div class="card">
+			  			<form name="loginForm"
+          		ng-submit="login.log()">
+			    			<fieldset class="form-group">
+				  				<textarea ng-model="login.logRequest.nick" 
+			   					class="form-control"
+									placeholder="Aqui tu nick..."
+									title="Nick"></textarea>
+								</fieldset>
+			    			<fieldset class="form-group">
+									<textarea ng-model="login.logRequest.passwd" 
+									class="form-control"
+									placeholder="Aqui tu pass..."
+									title="Password"></textarea>
+								</fieldset>
+								<fieldset class="form-group">
+				    			<input type="submit" 
+									class="btn btn-primary pull-right" 
+									value="Login" />
+								</fieldset>
+							</form><!-- form -->
+			  		</div> <!-- card -->
+					</div> <!--show div -->
+
+    	    <div ng-hide="login.showLogin">
+    	      <div class="card" ng-show="login.verbose">
+    	        <div class="item item-text-wrap">
+								<h2> Usuario : {{login.user}} </h2>
+								<h2> Password : {{login.passwd}} </h2>
+								<h3> Resultado : {{login.res}} </h3>
+	  	      	</div>
+			  		</div> <!-- card info verbose-->
+						<div class="card">
+    	        <div class="item item-text-wrap">
+								<h1>La llave la tiene {{login.ownerKey}}</h1>
+							</div>
+						</div> <!-- card info owner-->
+						<div class="card" ng-show="login.showCoger">
+							<button class="button button-block button-balanced"
+							ng-click="login.getKey()">
+								Coger llave
+							</button>
+						</div> <!-- card coger llave-->
+						<div class="card" ng-show="login.showDejar">
+							<button class="button button-block button-balanced"
+							ng-click="login.unGetKey()">
+								Dejar llave
+							</button>
+						</div> <!-- card dejar llave-->
+    	    </div> <!-- show div -->
+   			</ion-content>
+    	</ion-pane>
+		</div> <!-- controller div -->
   </body>
 </html>

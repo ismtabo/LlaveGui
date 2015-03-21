@@ -25,15 +25,19 @@
 
 	app.controller('LoginController', ['$http', function($http){
 		var login = this;
+		login.verbose = false;
 		login.showLogin = true;
+		login.showCoger = true;
+		login.showDejar = false;
 		login.logRequest = {}
 		
 		login.user = localStorage.getItem("nick");
 		login.passwd = localStorage.getItem("passwd");
 		login.res = "por saber";
+		login.ownerKey = "";
 
 		login.log = function(){
-			$http.post('http://localhost:3434/login/', {
+			$http.post('http://192.168.1.130:8080/login/', {
 				nick: login.logRequest.nick,
 				passwd: login.logRequest.passwd
 			}).success(function(data){
@@ -44,23 +48,82 @@
 					login.user = localStorage.getItem("nick");
 					login.passwd = localStorage.getItem("passwd");
 					login.res = "login ok";
+					login.showLogin = false;
+					login.whoOwn();
 				}
 				else{
-					//alert("login no ok");
+					alert("usuario o contrase√a erroneos!");
 					login.res = "login no ok";
 					login.logRequest = {};
 				}
 			}).error(function(data){
-				//alert("peticion no ok");
+				alert("no tienes conexion");
 				login.res = "peticion no ok";
 			});
 		};
 
+	login.whoOwn = function() {
+		$http.post('http://192.168.1.130:8080/who/', {
+			nick: localStorage.getItem("nick"),
+			passwd: localStorage.getItem("passwd")
+		}).success(function(data){
+			login.ownerKey = data.nick;
+			if (login.ownerKey == localStorage.getItem("nick")){
+				//alert("entro en 1");
+				login.showCoger = false;
+				login.showDejar = true;
+			}else if (login.ownerKey == "secretaria"){
+				//alert("entro en 2");
+				login.showCoger = true;
+				login.showDejar = false;
+			} else {
+				//alert("entro en 3");
+				login.showCoger = false;
+				login.showDejar = false;
+			}
+		}).error(function(data){
+			alert("no tienes conexion");
+		});
+	};
+	
+	login.getKey = function() {
+		$http.post('http://192.168.1.130:8080/take/', {
+			nick: localStorage.getItem("nick"),
+			passwd: localStorage.getItem("passwd")
+		}).success(function(data){
+			if (data.resultado)
+				//login.ownerKey = localStorage.getItem("nick");
+				login.whoOwn();
+			else 
+				alert("no puedes coger la llave, la tiene otra persona!!!");
+		}).error(function(data){
+			alert("no tienes conexion");
+		});
+	};
+
+	login.unGetKey = function() {
+		$http.post('http://192.168.1.130:8080/drop/', {
+			nick: localStorage.getItem("nick"),
+			passwd: localStorage.getItem("passwd")
+		}).success(function(data){
+			if (data.resultado)
+				login.whoOwn();
+			else 
+				alert("no puedes dejar la llave, la tiene otra persona!!!");
+		}).error(function(data){
+			alert("no tienes conexion");
+		});
+	};
+
 	if (localStorage.getItem("nick") == null || localStorage.getItem("passwd") == null){ 
 		login.showLogin = true;
 	}else{
-		login.showLogin = true;
+		login.showLogin = false;
+		login.whoOwn();
 	}	
+
+	//login.whoOwn();
+
 
 	}]);
 
