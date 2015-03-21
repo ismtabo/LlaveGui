@@ -26,8 +26,12 @@
 		<!--<div ng-controller="LoginController as login">	-->
     	<ion-pane ng-controller="LoginController as login"> 
    	  	<ion-header-bar class="bar-positive">
+					<button class="button icon-left 
+					ion-chevron-left button-clear button-dark"
+					ng-hide="login.showLogin"
+					ng-click="login.back()"></button>
       	  <h1 class="title">LLave GUI</h1>
-	  			<button class="button icon ion-loop" 
+					<button class="button icon ion-loop" 
 					style="background-color:red"
 					ng-hide="login.showLogin"
 					ng-click="login.whoOwn()"></button>

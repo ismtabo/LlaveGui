@@ -37,7 +37,7 @@
 		login.ownerKey = "";
 
 		login.log = function(){
-			$http.post('http://192.168.1.130:8080/login/', {
+			$http.post('http://gui.uva.es:5584/login/', {
 				nick: login.logRequest.nick,
 				passwd: login.logRequest.passwd
 			}).success(function(data){
@@ -61,9 +61,15 @@
 				login.res = "peticion no ok";
 			});
 		};
+	
+	login.back = function () {
+		login.showLogin = true;
+		localStorage.removeItem("nick");
+		localStorage.removeItem("passwd");
+	};
 
 	login.whoOwn = function() {
-		$http.post('http://192.168.1.130:8080/who/', {
+		$http.post('http://gui.uva.es:5584/who/', {
 			nick: localStorage.getItem("nick"),
 			passwd: localStorage.getItem("passwd")
 		}).success(function(data){
@@ -87,7 +93,7 @@
 	};
 	
 	login.getKey = function() {
-		$http.post('http://192.168.1.130:8080/take/', {
+		$http.post('http://gui.uva.es:5584/take/', {
 			nick: localStorage.getItem("nick"),
 			passwd: localStorage.getItem("passwd")
 		}).success(function(data){
@@ -102,7 +108,7 @@
 	};
 
 	login.unGetKey = function() {
-		$http.post('http://192.168.1.130:8080/drop/', {
+		$http.post('http://gui.uva.es:5584/drop/', {
 			nick: localStorage.getItem("nick"),
 			passwd: localStorage.getItem("passwd")
 		}).success(function(data){
