@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+  </head>
+  <body ng-app="starter">
+
+    <ion-pane>
+   	  <ion-header-bar class="bar-positive">
+        <h1 class="title">LLave GUI</h1>
+	  	<button class="button icon ion-loop" style="background-color:red"></button>
+      </ion-header-bar>
+
+	  <ion-content> 
+		<div ng-controller="LoginController as login">	
+          <div class="card" ng-show="login.showLogin">
+			<form name="loginForm"
+            ng-submit="login.log()">
+			    <fieldset class="form-group">
+					<textarea ng-model="login.logRequest.nick" 
+					class="form-control"
+					placeholder="Aqui tu nick..."
+					title="Nick"></textarea>
+				</fieldset>
+			    <fieldset class="form-group">
+					<textarea ng-model="login.logRequest.passwd" 
+					class="form-control"
+					placeholder="Aqui tu pass..."
+					title="Password"></textarea>
+				</fieldset>
+				<fieldset class="form-group">
+				    <input type="submit" 
+					class="btn btn-primary pull-right" 
+					value="Login" />
+				</fieldset>
+			</form>
+		  </div>
+          <div class="card" ng-show="login.showLogin">
+            <div class="item item-text-wrap">
+				<h2> Usuario : {{login.user}} </h2>
+				<h2> Password : {{login.passwd}} </h2>
+				<h3> Resultado : {{login.res}} </h3>
+	        </div>
+		  </div>
+        </div>
+      </ion-content>
+    </ion-pane>
+  </body>
+</html>
