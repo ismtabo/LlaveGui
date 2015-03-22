@@ -108,6 +108,7 @@
 				login.whoOwn();
 			else 
 				login.showAlert("no puedes coger la llave, la tiene otra persona!!!");
+				login.whoOwn();
 		}).error(function(data){
 			login.showAlert("no tienes conexion");
 		});
