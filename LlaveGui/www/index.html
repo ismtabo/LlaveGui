@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+    <title>Llave GUI</title>
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -30,7 +30,7 @@
 					ion-chevron-left button-clear button-dark"
 					ng-hide="login.showLogin"
 					ng-click="login.back()"></button>
-      	  <h1 class="title">LLave GUI</h1>
+      	  <h1 class="title">Llave GUI</h1>
 					<button class="button icon ion-loop" 
 					style="background-color:red"
 					ng-hide="login.showLogin"
@@ -39,28 +39,34 @@
 
 	  		<ion-content> 
       		<div ng-show="login.showLogin">
-        		<div class="card">
-			  			<form name="loginForm"
-          		ng-submit="login.log()">
-			    			<fieldset class="form-group">
-				  				<textarea ng-model="login.logRequest.nick" 
-			   					class="form-control"
+      			<form name="loginForm"
+        		ng-submit="login.log()">
+      			<div class="card">
+		  				<div class="list">
+							  <label class="item item-input">
+							    <input
+							    type="text"
+							    ng-model="login.logRequest.nick" 
+		   						class="form-control"
 									placeholder="Aqui tu nick..."
-									title="Nick"></textarea>
-								</fieldset>
-			    			<fieldset class="form-group">
-									<input type="password" ng-model="login.logRequest.passwd" 
-									class="form-control"
-									placeholder="Aqui tu pass..."
-									title="Password"></input>
-								</fieldset>
-								<fieldset class="form-group">
-				    			<input type="submit" 
-									class="btn btn-primary pull-right" 
-									value="Login" />
-								</fieldset>
-							</form><!-- form -->
-			  		</div> <!-- card -->
+									title="Nick"/>
+							  </label>
+							  <label class="item item-input">
+							    <input
+							    type="password"
+							    ng-model="login.logRequest.passwd"
+							    class="form-control"
+							    placeholder="Aqui tu pass..."
+							    title="Password"/>
+							  </label>
+							</div>
+		  			</div> <!-- card -->
+			  		<button
+						type="submit"
+						class="button button-full button-balanced">
+			  			Login
+			  		</button>
+			  		</form><!-- form -->
 					</div> <!--show div -->
 
     	    <div ng-hide="login.showLogin">
@@ -76,18 +82,18 @@
 								<h1>La llave la tiene {{login.ownerKey}}</h1>
 							</div>
 						</div> <!-- card info owner-->
-						<div class="card" ng-show="login.showCoger">
-							<button class="button button-block button-balanced"
-							ng-click="login.getKey()">
-								Coger llave
-							</button>
-						</div> <!-- card coger llave-->
-						<div class="card" ng-show="login.showDejar">
-							<button class="button button-block button-balanced"
-							ng-click="login.unGetKey()">
-								Dejar llave
-							</button>
-						</div> <!-- card dejar llave-->
+						<button
+						ng-show="login.showCogerHideDejar"
+						class="button button-block button-energized"
+						ng-click="login.getKey()">
+							Coger llave
+						</button><!-- coger llave-->
+						<button
+						ng-hide="login.showCogerHideDejar"
+						class="button button-block button-assertive"
+						ng-click="login.unGetKey()">
+							Dejar llave
+						</button> <!-- dejar llave-->
     	    </div> <!-- show div -->
    			</ion-content>
     	</ion-pane>
