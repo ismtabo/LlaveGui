@@ -83,13 +83,15 @@
 							</div>
 						</div> <!-- card info owner-->
 						<button
-						ng-show="login.showCogerHideDejar"
+						ng-show="login.showCogerHideDejar == true &&
+						login.showCogerHideDejar != null"
 						class="button button-block button-energized"
 						ng-click="login.getKey()">
 							Coger llave
 						</button><!-- coger llave-->
 						<button
-						ng-hide="login.showCogerHideDejar"
+						ng-show="login.showCogerHideDejar == false &&
+						login.showCogerHideDejar != null"
 						class="button button-block button-assertive"
 						ng-click="login.unGetKey()">
 							Dejar llave
