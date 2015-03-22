@@ -26,7 +26,7 @@
 		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 	});
 
-	app.controller('LoginController', ['$http', '$ionicPopup', function($http, $ionicPopup){
+	app.controller('LoginController', ['$scope', '$http', '$ionicPopup', function($scope, $http, $ionicPopup){
 		var login = this;
 		login.verbose = false;
 		login.showLogin = true;
@@ -98,6 +98,9 @@
 			}
 		}).error(function(data){
 			login.showAlert("no tienes conexion");
+		}).finally(function() {
+			// Stop the ion-refresher from spinning
+			$scope.$broadcast('scroll.refreshComplete');
 		});
 	};
 	

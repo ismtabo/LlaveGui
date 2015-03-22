@@ -31,10 +31,12 @@
 					ng-hide="login.showLogin"
 					ng-click="login.back()"></button>
       	  <h1 class="title">Llave GUI</h1>
+					<!--
 					<button class="button icon ion-loop" 
 					style="background-color:red"
 					ng-hide="login.showLogin"
 					ng-click="login.whoOwn()"></button>
+					-->
       	</ion-header-bar>
 
 	  		<ion-content> 
@@ -70,6 +72,10 @@
 					</div> <!--show div -->
 
     	    <div ng-hide="login.showLogin">
+    	    	<ion-refresher
+					    pulling-text="Tira para actualizar..."
+					    on-refresh="login.whoOwn()">
+					  </ion-refresher>
     	      <div class="card" ng-show="login.verbose">
     	        <div class="item item-text-wrap">
 								<h2> Usuario : {{login.user}} </h2>
