@@ -92,6 +92,9 @@
 			}else if (login.ownerKey == "secretaria"){
 				console.log("[INFO] entro en 2");
 				login.showCogerHideDejar = true;
+			}else{
+				console.log("[INFO] entro en 3");
+				login.showCogerHideDejar = null;
 			}
 		}).error(function(data){
 			login.showAlert("no tienes conexion");
