@@ -26,10 +26,11 @@
 		<!--<div ng-controller="LoginController as login">	-->
     	<ion-pane ng-controller="LoginController as login"> 
    	  	<ion-header-bar class="bar-positive">
+					<!--
 					<button class="button icon-left 
 					ion-chevron-left button-clear button-dark"
 					ng-hide="login.showLogin"
-					ng-click="login.back()"></button>
+					ng-click="login.back()"></button> -->
       	  <h1 class="title"><img class="title-image" src="http://www.gui.uva.es/wp-content/uploads/2014/11/logo_gui1letras.png" height="43" /></h1>
 					<!--
 					<button class="button icon ion-loop" 
@@ -104,6 +105,11 @@
 						</button> <!-- dejar llave-->
     	    </div> <!-- show div -->
    			</ion-content>
+				<ion-footer-bar class="bar-assertive" 
+				ng-click="login.back()" ng-hide="login.showLogin">
+					<div class="title"> Logout </div>
+				</ion-footer-bar>
+
     	</ion-pane>
 		<!--/div--> <!-- controller div -->
   </body>
