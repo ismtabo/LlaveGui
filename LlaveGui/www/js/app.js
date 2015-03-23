@@ -78,6 +78,7 @@
 		login.showLogin = true;
 		localStorage.removeItem("nick");
 		localStorage.removeItem("passwd");
+		login.logRequest = {};
 	};
 
 	login.whoOwn = function() {
