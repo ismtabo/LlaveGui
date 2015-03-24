@@ -103,6 +103,40 @@
 						ng-click="login.unGetKey()">
 							Dejar llave
 						</button> <!-- dejar llave-->
+						<div class="card list"
+							ng-hide="login.showCogerHideDejar == false &&
+							login.showCogerHideDejar != null">
+							<div class="item item-divider">
+								¿Donde estas?
+							</div>
+							<a class="item" href="#" ng-class="{ active:login.isSet(1) }"
+							ng-click="login.setTag(1)">
+								Sede
+							</a>
+							<a class="item" href="#" ng-class="{ active:login.isSet(2) }"
+							ng-click="login.setTag(2)">
+								Cafeteria
+							</a>
+							<a class="item" href="#" ng-class="{ active:login.isSet(3) }"
+							ng-click="login.setTag(3)">
+								Servicio
+							</a>
+							<a class="item" href="#" ng-class="{ active:login.isSet(4) }"
+							ng-click="login.setTag(4)">
+								Laboratio General
+							</a>
+							<a class="item" href="#" ng-class="{ active:login.isSet(5) }"
+							ng-click="login.setTag(5)">
+								Abajo en la puerta, fumando
+							</a>
+							<a class="item" href="#" ng-class="{ active:login.isSet(6) }"
+							ng-click="login.setTag(6)">
+								Otro lugar
+							</a>
+
+						</div>
+							
+						
     	    </div> <!-- show div -->
    			</ion-content>
 				<ion-footer-bar class="bar-calm " 

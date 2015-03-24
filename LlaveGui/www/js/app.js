@@ -37,6 +37,17 @@
 		login.passwd = localStorage.getItem("passwd");
 		login.res = "por saber";
 		login.ownerKey = "";
+
+		//TODO http to set init tag
+		login.tagSet = 1;
+		login.isSet = function (tag) {
+			return tag === login.tagSet;
+		};
+
+		login.setTag = function(tag) {
+			login.tagSet = tag;
+			//TODO http to set Tag
+		}
 		
 		login.showAlert = function(message) {
 			var alertPopup = $ionicPopup.alert({
@@ -47,6 +58,8 @@
 				console.log('[ERROR] ' + message);
 			});
 		};
+
+		//TODO refactor http functions to get and set tag
 
 		login.log = function(){
 			$http.post('http://gui.uva.es:5584/login/', {
