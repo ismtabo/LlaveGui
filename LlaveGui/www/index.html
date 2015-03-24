@@ -86,7 +86,9 @@
 			  		</div> <!-- card info verbose-->
 						<div class="card">
     	        <div class="item item-text-wrap">
-								<h1>La llave la tiene {{login.ownerKey}}</h1>
+								<h1>
+									La llave la tiene {{login.ownerKey}} {{login.getTagFormat()}}
+								</h1>
 							</div>
 						</div> <!-- card info owner-->
 						<button
@@ -104,37 +106,20 @@
 							Dejar llave
 						</button> <!-- dejar llave-->
 						<div class="card list"
-							ng-hide="login.showCogerHideDejar == false &&
+							ng-show="login.showCogerHideDejar == false &&
 							login.showCogerHideDejar != null">
-							<div class="item item-divider">
-								¿Donde estas?
+							<div class="item item-divider energized" 
+							style="background-color:blue" >
+								¿Donde estas
 							</div>
-							<a class="item" href="#" ng-class="{ active:login.isSet(1) }"
-							ng-click="login.setTag(1)">
-								Sede
-							</a>
-							<a class="item" href="#" ng-class="{ active:login.isSet(2) }"
-							ng-click="login.setTag(2)">
-								Cafeteria
-							</a>
-							<a class="item" href="#" ng-class="{ active:login.isSet(3) }"
-							ng-click="login.setTag(3)">
-								Servicio
-							</a>
-							<a class="item" href="#" ng-class="{ active:login.isSet(4) }"
-							ng-click="login.setTag(4)">
-								Laboratio General
-							</a>
-							<a class="item" href="#" ng-class="{ active:login.isSet(5) }"
-							ng-click="login.setTag(5)">
-								Abajo en la puerta, fumando
-							</a>
-							<a class="item" href="#" ng-class="{ active:login.isSet(6) }"
-							ng-click="login.setTag(6)">
-								Otro lugar
-							</a>
-
-						</div>
+							<div ng-repeat="tag in login.tagContent">
+								<a class="item" href="#" 
+								ng-class="{ active:login.isSet(tag.indice) }"
+								ng-click="login.setTag(tag.indice)">
+									{{tag.name}}
+								</a>
+							</div> <!-- fin del repeat -->
+						</div> <!-- tag card list -->
 							
 						
     	    </div> <!-- show div -->

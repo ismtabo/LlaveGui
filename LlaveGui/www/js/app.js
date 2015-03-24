@@ -39,6 +39,19 @@
 		login.ownerKey = "";
 
 		//TODO http to set init tag
+		login.tagContent = [{
+			name:"sede",
+			indice:0},{
+			name:"cafeteria",
+			indice:1},{
+			name:"servicio",
+			indice:2},{
+			name:"laboratio general",
+			indice:3},{
+			name:"abajo en la puerta fumando",
+			indice:4},{
+			name:"otro lugar",
+			indice:5}];
 		login.tagSet = 1;
 		login.isSet = function (tag) {
 			return tag === login.tagSet;
@@ -46,8 +59,20 @@
 
 		login.setTag = function(tag) {
 			login.tagSet = tag;
+			login.getTagFormat();
 			//TODO http to set Tag
 		}
+
+		login.getTagFormat = function(){
+			if (login.ownerKey === "secretaria") return "";
+			if (login.tagSet === 0 || login.tagSet === 1)
+				return ("que esta en la " + login.tagContent[login.tagSet].name);
+			if (login.tagSet === 2 || login.tagSet === 3)
+				return ("que esta en el " + login.tagContent[login.tagSet].name);
+			if (login.tagSet === 5)
+				return ("que esta en " + login.tagContent[login.tagSet].name);
+			return ("que esta " + login.tagContent[login.tagSet].name);
+		};
 		
 		login.showAlert = function(message) {
 			var alertPopup = $ionicPopup.alert({
