@@ -98,7 +98,9 @@
 				login.showCogerHideDejar = null;
 			}
 		}).error(function(data){
-			login.showAlert("no tienes conexion");
+			login.showCogerHideDejar = null;
+			login.ownewKey = "Sin conexion, intentalo de nuevo mas tarde";
+			//login.showAlert("no tienes conexion");
 		}).finally(function() {
 			// Stop the ion-refresher from spinning
 			$scope.$broadcast('scroll.refreshComplete');
@@ -118,7 +120,9 @@
 				login.whoOwn();
 			}
 		}).error(function(data){
-			login.showAlert("no tienes conexion");
+			login.showCogerHideDejar = null;
+			login.ownewKey = "Sin conexion, intentalo de nuevo mas tarde";
+			//login.showAlert("no tienes conexion");
 		});
 	};
 
@@ -127,12 +131,13 @@
 			nick: localStorage.getItem("nick"),
 			passwd: localStorage.getItem("passwd")
 		}).success(function(data){
-			if (data.resultado)
-				login.whoOwn();
-			else 
+			if (!data.resultado)
 				login.showAlert("no puedes dejar la llave, la tiene otra persona!!!");
+			login.whoOwn();
 		}).error(function(data){
-			login.showAlert("no tienes conexion");
+			login.showCogerHideDejar = null;
+			login.ownewKey = "Sin conexion, intentalo de nuevo mas tarde";
+			//login.showAlert("no tienes conexion");
 		});
 	};
 
