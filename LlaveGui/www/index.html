@@ -86,7 +86,9 @@
 			  		</div> <!-- card info verbose-->
 						<div class="card">
     	        <div class="item item-text-wrap">
-								<h1>La llave la tiene {{login.ownerKey}}</h1>
+								<h1>
+									La llave la tiene {{login.ownerKey}} {{login.getTagFormat()}}
+								</h1>
 							</div>
 						</div> <!-- card info owner-->
 						<button
@@ -103,6 +105,23 @@
 						ng-click="login.unGetKey()">
 							Dejar llave
 						</button> <!-- dejar llave-->
+						<div class="card list"
+							ng-show="login.showCogerHideDejar == false &&
+							login.showCogerHideDejar != null">
+							<div class="item item-divider energized" 
+							style="background-color:blue" >
+								¿Donde estas
+							</div>
+							<div ng-repeat="tag in login.tagContent">
+								<a class="item" href="#" 
+								ng-class="{ active:login.isSet(tag.indice) }"
+								ng-click="login.setTag(tag.indice)">
+									{{tag.name}}
+								</a>
+							</div> <!-- fin del repeat -->
+						</div> <!-- tag card list -->
+							
+						
     	    </div> <!-- show div -->
    			</ion-content>
 				<ion-footer-bar class="bar-calm " 

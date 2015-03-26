@@ -37,6 +37,54 @@
 		login.passwd = localStorage.getItem("passwd");
 		login.res = "por saber";
 		login.ownerKey = "";
+
+		login.tagContent = [{
+			name:"sede",
+			indice:0},{
+			name:"cafeteria",
+			indice:1},{
+			name:"servicio",
+			indice:2},{
+			name:"laboratio general",
+			indice:3},{
+			name:"abajo en la puerta fumando",
+			indice:4},{
+			name:"otro lugar",
+			indice:5}];
+		login.tagSet = 0;
+		login.isSet = function (tag) {
+			return tag === login.tagSet;
+		};
+
+		login.setTag = function(tag) {
+			console.log("state = " + tag);
+			$http.post('http://gui.uva.es:5584/state/', {
+				nick: localStorage.getItem("nick"),
+				passwd: localStorage.getItem("passwd"),
+				estado: tag
+			}).success(function(data){
+				if (data.resultado) {
+					login.whoOwn();
+				} else {
+					login.showAlert("no tienes la llave!!!");
+					login.whoOwn();
+				}
+				}).error(function(data){
+					login.showCogerHideDejar = null;
+					login.ownewKey = "Sin conexion, intentalo de nuevo mas tarde";
+				});
+		};
+
+		login.getTagFormat = function(){
+			if (login.ownerKey === "secretaria") return "";
+			if (login.tagSet === 0 || login.tagSet === 1)
+				return ("que esta en la " + login.tagContent[login.tagSet].name);
+			if (login.tagSet === 2 || login.tagSet === 3)
+				return ("que esta en el " + login.tagContent[login.tagSet].name);
+			if (login.tagSet === 5)
+				return ("que esta en " + login.tagContent[login.tagSet].name);
+			return ("que esta " + login.tagContent[login.tagSet].name);
+		};
 		
 		login.showAlert = function(message) {
 			var alertPopup = $ionicPopup.alert({
@@ -47,6 +95,8 @@
 				console.log('[ERROR] ' + message);
 			});
 		};
+
+		//TODO refactor http functions to get and set tag
 
 		login.log = function(){
 			$http.post('http://gui.uva.es:5584/login/', {
@@ -78,6 +128,8 @@
 		login.showLogin = true;
 		localStorage.removeItem("nick");
 		localStorage.removeItem("passwd");
+		login.nick = "";
+		login.passwd = "";
 		login.logRequest = {};
 	};
 
@@ -86,6 +138,7 @@
 			nick: localStorage.getItem("nick"),
 			passwd: localStorage.getItem("passwd")
 		}).success(function(data){
+			console.log("succes en who con data = " + data);
 			login.ownerKey = data.nick;
 			if (login.ownerKey == localStorage.getItem("nick")){
 				console.log("[INFO] entro en 1");
@@ -97,6 +150,8 @@
 				console.log("[INFO] entro en 3");
 				login.showCogerHideDejar = null;
 			}
+			login.tagSet = data.estado;
+			login.getTagFormat();
 		}).error(function(data){
 			login.showCogerHideDejar = null;
 			login.ownewKey = "Sin conexion, intentalo de nuevo mas tarde";
@@ -113,7 +168,6 @@
 			passwd: localStorage.getItem("passwd")
 		}).success(function(data){
 			if (data.resultado) {
-				//login.ownerKey = localStorage.getItem("nick");
 				login.whoOwn();
 			} else {
 				login.showAlert("no puedes coger la llave, la tiene otra persona!!!");
@@ -122,7 +176,6 @@
 		}).error(function(data){
 			login.showCogerHideDejar = null;
 			login.ownewKey = "Sin conexion, intentalo de nuevo mas tarde";
-			//login.showAlert("no tienes conexion");
 		});
 	};
 
