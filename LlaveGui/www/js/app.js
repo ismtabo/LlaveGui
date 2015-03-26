@@ -38,7 +38,6 @@
 		login.res = "por saber";
 		login.ownerKey = "";
 
-		//TODO http to set init tag
 		login.tagContent = [{
 			name:"sede",
 			indice:0},{
@@ -52,16 +51,29 @@
 			indice:4},{
 			name:"otro lugar",
 			indice:5}];
-		login.tagSet = 1;
+		login.tagSet = 0;
 		login.isSet = function (tag) {
 			return tag === login.tagSet;
 		};
 
 		login.setTag = function(tag) {
-			login.tagSet = tag;
-			login.getTagFormat();
-			//TODO http to set Tag
-		}
+			console.log("state = " + tag);
+			$http.post('http://gui.uva.es:5584/state/', {
+				nick: localStorage.getItem("nick"),
+				passwd: localStorage.getItem("passwd"),
+				estado: tag
+			}).success(function(data){
+				if (data.resultado) {
+					login.whoOwn();
+				} else {
+					login.showAlert("no tienes la llave!!!");
+					login.whoOwn();
+				}
+				}).error(function(data){
+					login.showCogerHideDejar = null;
+					login.ownewKey = "Sin conexion, intentalo de nuevo mas tarde";
+				});
+		};
 
 		login.getTagFormat = function(){
 			if (login.ownerKey === "secretaria") return "";
@@ -116,6 +128,8 @@
 		login.showLogin = true;
 		localStorage.removeItem("nick");
 		localStorage.removeItem("passwd");
+		login.nick = "";
+		login.passwd = "";
 		login.logRequest = {};
 	};
 
@@ -124,6 +138,7 @@
 			nick: localStorage.getItem("nick"),
 			passwd: localStorage.getItem("passwd")
 		}).success(function(data){
+			console.log("succes en who con data = " + data);
 			login.ownerKey = data.nick;
 			if (login.ownerKey == localStorage.getItem("nick")){
 				console.log("[INFO] entro en 1");
@@ -135,6 +150,8 @@
 				console.log("[INFO] entro en 3");
 				login.showCogerHideDejar = null;
 			}
+			login.tagSet = data.estado;
+			login.getTagFormat();
 		}).error(function(data){
 			login.showCogerHideDejar = null;
 			login.ownewKey = "Sin conexion, intentalo de nuevo mas tarde";
@@ -151,7 +168,6 @@
 			passwd: localStorage.getItem("passwd")
 		}).success(function(data){
 			if (data.resultado) {
-				//login.ownerKey = localStorage.getItem("nick");
 				login.whoOwn();
 			} else {
 				login.showAlert("no puedes coger la llave, la tiene otra persona!!!");
@@ -160,7 +176,6 @@
 		}).error(function(data){
 			login.showCogerHideDejar = null;
 			login.ownewKey = "Sin conexion, intentalo de nuevo mas tarde";
-			//login.showAlert("no tienes conexion");
 		});
 	};
 
