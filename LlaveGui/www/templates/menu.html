@@ -3,7 +3,20 @@
     <ion-nav-bar class="bar-stable">
       <ion-nav-back-button>
       </ion-nav-back-button>
-
+      <ion-header-bar class="bar-positive">
+            <!--
+            <button class="button icon-left 
+            ion-chevron-left button-clear button-dark"
+            ng-hide="login.showLogin"
+            ng-click="login.back()"></button> -->
+            <img class="title-image" src="http://www.gui.uva.es/wp-content/uploads/2014/11/logo_gui1letras.png" height="43" />
+            <!--
+            <button class="button icon ion-loop" 
+            style="background-color:red"
+            ng-hide="login.showLogin"
+            ng-click="login.whoOwn()"></button>
+            -->
+      </ion-header-bar>
       <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
@@ -14,22 +27,17 @@
 
   <ion-side-menu side="left">
     <ion-header-bar class="bar-stable">
-      <h1 class="title">Left</h1>
+      <h1 class="title">Menu</h1>
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item nav-clear menu-close ng-click="login()">
-          Login
+        <ion-item nav-clear menu-close href="#/app/key">
+          Llave
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/search">
-          Search
+        <ion-item nav-clear menu-close href="#/app/support">
+          Soporte
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/browse">
-          Browse
-        </ion-item>
-        <ion-item nav-clear menu-close href="#/app/playlists">
-          Playlists
-        </ion-item>
+        <ion-item nav-clear menu-close ng-click="back()"></ion-item>
       </ion-list>
     </ion-content>
   </ion-side-menu>
