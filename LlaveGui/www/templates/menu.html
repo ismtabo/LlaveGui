@@ -31,13 +31,14 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item nav-clear menu-close href="#/app/key">
+        <ion-item nav-clear menu-close ng-hide="loged" href="#/app/login">Login</ion-item>
+        <ion-item nav-clear menu-close ng-show="loged" ng-click="back()">Logout</ion-item>
+        <ion-item nav-clear menu-close ng-show="loged" href="#/app/key">
           Llave
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/support">
           Soporte
         </ion-item>
-        <ion-item nav-clear menu-close ng-click="back()"></ion-item>
       </ion-list>
     </ion-content>
   </ion-side-menu>

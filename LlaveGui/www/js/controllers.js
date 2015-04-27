@@ -1,6 +1,6 @@
-angular.module('starter.controllers', ['ionic'])
+angular.module('starter.controllers', ['ionic','ui.router'])
 
-.controller('AppCtrl',['$scope','$ionicModal', '$ionicPopup', '$http' ,function($scope, $ionicModal, $ionicPopup, $http) {
+.controller('AppCtrl',['$scope','$ionicModal', '$ionicPopup', '$ionicHistory', '$http', '$state' ,function($scope, $ionicModal, $ionicPopup, $ionicHistory, $http, $state) {
   // // Form data for the login modal
   // $scope.loginData = {};
 
@@ -61,25 +61,16 @@ angular.module('starter.controllers', ['ionic'])
 	 //  	}
 		// }
   // });
-
-  $ionicModal.fromTemplate("templates/login.html", function($ionicModal) {
-        $scope.modal = $ionicModal;
-    }, {
-        // Use our scope for the scope of the modal to keep it simple
-        scope: $scope,
-        // The animation we want to use for the modal entrance
-        animation: 'slide-in-up'
-    });
-
-	$scope.verbose = true;
-  $scope.logRequest = {}
-	$scope.user = localStorage.getItem("nick");
-	$scope.passwd = localStorage.getItem("passwd");
-	$scope.res = "por saber";
-	$scope.loged = !(localStorage.getItem("nick") == "null" ||
+  $scope.verbose = false;
+  $scope.loged = !(localStorage.getItem("nick") == "null" ||
 	  		localStorage.getItem("passwd") == "null" || localStorage.getItem("nick") == "" ||
 			  		localStorage.getItem("passwd") == "");
 	console.log("is loged",$scope.loged);
+
+	$scope.user = localStorage.getItem("nick");
+	$scope.passwd = localStorage.getItem("passwd");
+	$scope.res = "por saber";
+  $scope.logRequest = {};
 
 	$scope.log = function(){
 		$http.post('http://gui.uva.es:5584/login/', {
@@ -93,8 +84,11 @@ angular.module('starter.controllers', ['ionic'])
 				$scope.user = localStorage.getItem("nick");
 				$scope.passwd = localStorage.getItem("passwd");
 				$scope.res = "login ok";
-				$scope.modal.hide();
 				$scope.loged = true;
+				$ionicHistory.nextViewOptions({
+			       disableBack: true
+			    });
+				$state.go('app.key');
 			}
 			else{
 				$scope.showAlert("usuario o contraseña erroneos!");
@@ -109,7 +103,10 @@ angular.module('starter.controllers', ['ionic'])
 
   $scope.back = function () {
   	$scope.loged = false;
-  	$scope.modal.show();
+  	$ionicHistory.nextViewOptions({
+			       disableBack: true
+			    });
+  	$state.go('app.login');
   	localStorage.removeItem("nick");
   	localStorage.removeItem("passwd");
   	$scope.nick = "";
@@ -127,13 +124,33 @@ angular.module('starter.controllers', ['ionic'])
 			});
 		};
 
-	$scope.showLog = function(argument) {
-		$scope.modal.show();
-	}
+
 
 }])
 
-.controller('KeyCtrl',['$scope', '$ionicPopup', '$http', function ($scope,$ionicPopup,$http) {
+.controller('LoginCtrl', ['$scope','$state','$ionicHistory', function($scope,$state,$ionicHistory){
+	$ionicHistory.nextViewOptions({
+       disableBack: true
+    });
+
+	$scope.$on("$ionicView.enter", function () {
+			console.log("loged",$scope.loged);
+			// $scope.loged = !(localStorage.getItem("nick") == "null" ||
+	  // 		localStorage.getItem("passwd") == "null" || localStorage.getItem("nick") == "" ||
+			//   		localStorage.getItem("passwd") == "");
+			if ($scope.loged){
+				$ionicHistory.nextViewOptions({
+			       disableBack: true
+			    });
+				$state.go('app.key');
+			}
+		});
+}])
+
+.controller('KeyCtrl',['$scope', '$ionicPopup', '$ionicHistory', '$http', '$state', function ($scope,$ionicPopup,$ionicHistory,$http,$state) {
+	$ionicHistory.nextViewOptions({
+       disableBack: true
+    });
 
 	$scope.ownerKey = "";
 	$scope.tagContent = [{
@@ -248,23 +265,18 @@ angular.module('starter.controllers', ['ionic'])
   	});
   };
 
-	$scope.showAlert = function(message) {
-			var alertPopup = $ionicPopup.alert({
-				title: 'Error',
-				template: message
-			});
-			alertPopup.then(function(res) {
-				console.log('[ERROR] ' + message);
-			});
-		};
-		$scope.$on("$ionicView.enter", function () {
-			$scope.loged = !(localStorage.getItem("nick") == "null" ||
-	  		localStorage.getItem("passwd") == "null" || localStorage.getItem("nick") == "" ||
-			  		localStorage.getItem("passwd") == "");
-			if ($scope.logued){ 
+	$scope.$on("$ionicView.enter", function () {
+			console.log("loged",$scope.loged);
+			// $scope.loged = !(localStorage.getItem("nick") == "null" ||
+	  // 		localStorage.getItem("passwd") == "null" || localStorage.getItem("nick") == "" ||
+			//   		localStorage.getItem("passwd") == "");
+			if ($scope.loged){ 
 				$scope.whoOwn();
 			}else{
-				$scope.showLog();
+				$ionicHistory.nextViewOptions({
+			       disableBack: true
+			    });
+				$state.go('app.login');
 			}
 		});
 
