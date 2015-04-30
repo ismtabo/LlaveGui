@@ -1,0 +1,56 @@
+<ion-view view-title="Login">
+  <ion-content>
+    <!-- <form ng-submit="doLogin()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Username</span>
+          <input type="text" ng-model="loginData.username">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="loginData.password">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Log in</button>
+        </label>
+      </div>
+    </form> -->
+    <div>
+      <form name="loginForm"
+      ng-submit="log()">
+      <div class="card">
+        <div class="list">
+          <label class="item item-input">
+            <input
+            type="text"
+            ng-model="logRequest.nick" 
+            class="form-control"
+            placeholder="Aqui tu nick..."
+            title="Nick"/>
+          </label>
+          <label class="item item-input">
+            <input
+            type="password"
+            ng-model="logRequest.passwd"
+            class="form-control"
+            placeholder="Aqui tu pass..."
+            title="Password"/>
+          </label>
+        </div>
+      </div> <!-- card -->
+      <button
+      type="submit"
+      class="button button-full button-balanced">
+        Login
+      </button>
+      </form><!-- form -->
+    </div> 
+    <div class="card" ng-show="verbose">
+      <div class="item item-text-wrap">
+        <h2> Usuario : {{user}} </h2>
+        <h2> Password : {{passwd}} </h2>
+        <h3> Resultado : {{res}} </h3>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

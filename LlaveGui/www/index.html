@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>Llave GUI</title>
+    <title></title>
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -20,116 +20,10 @@
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
   </head>
+
   <body ng-app="starter">
-		
-		<!--<div ng-controller="LoginController as login">	-->
-    	<ion-pane ng-controller="LoginController as login"> 
-   	  	<ion-header-bar class="bar-positive">
-					<!--
-					<button class="button icon-left 
-					ion-chevron-left button-clear button-dark"
-					ng-hide="login.showLogin"
-					ng-click="login.back()"></button> -->
-      	  <h1 class="title"><img class="title-image" src="http://www.gui.uva.es/wp-content/uploads/2014/11/logo_gui1letras.png" height="43" /></h1>
-					<!--
-					<button class="button icon ion-loop" 
-					style="background-color:red"
-					ng-hide="login.showLogin"
-					ng-click="login.whoOwn()"></button>
-					-->
-      	</ion-header-bar>
-
-	  		<ion-content> 
-      		<div ng-show="login.showLogin">
-      			<form name="loginForm"
-        		ng-submit="login.log()">
-      			<div class="card">
-		  				<div class="list">
-							  <label class="item item-input">
-							    <input
-							    type="text"
-							    ng-model="login.logRequest.nick" 
-		   						class="form-control"
-									placeholder="Aqui tu nick..."
-									title="Nick"/>
-							  </label>
-							  <label class="item item-input">
-							    <input
-							    type="password"
-							    ng-model="login.logRequest.passwd"
-							    class="form-control"
-							    placeholder="Aqui tu pass..."
-							    title="Password"/>
-							  </label>
-							</div>
-		  			</div> <!-- card -->
-			  		<button
-						type="submit"
-						class="button button-full button-balanced">
-			  			Login
-			  		</button>
-			  		</form><!-- form -->
-					</div> <!--show div -->
-
-    	    <div ng-hide="login.showLogin">
-    	    	<ion-refresher
-					    pulling-text="Tira para actualizar..."
-					    on-refresh="login.whoOwn()">
-					  </ion-refresher>
-    	      <div class="card" ng-show="login.verbose">
-    	        <div class="item item-text-wrap">
-								<h2> Usuario : {{login.user}} </h2>
-								<h2> Password : {{login.passwd}} </h2>
-								<h3> Resultado : {{login.res}} </h3>
-	  	      	</div>
-			  		</div> <!-- card info verbose-->
-						<div class="card">
-    	        <div class="item item-text-wrap">
-								<h1>
-									La llave la tiene {{login.ownerKey}} {{login.getTagFormat()}}
-								</h1>
-							</div>
-						</div> <!-- card info owner-->
-						<button
-						ng-show="login.showCogerHideDejar == true &&
-						login.showCogerHideDejar != null"
-						class="button button-block button-energized"
-						ng-click="login.getKey()">
-							Coger llave
-						</button><!-- coger llave-->
-						<button
-						ng-show="login.showCogerHideDejar == false &&
-						login.showCogerHideDejar != null"
-						class="button button-block button-assertive"
-						ng-click="login.unGetKey()">
-							Dejar llave
-						</button> <!-- dejar llave-->
-						<div class="card list"
-							ng-show="login.showCogerHideDejar == false &&
-							login.showCogerHideDejar != null">
-							<div class="item item-divider energized" 
-							style="background-color:blue" >
-								¿Donde estas
-							</div>
-							<div ng-repeat="tag in login.tagContent">
-								<a class="item" href="#" 
-								ng-class="{ active:login.isSet(tag.indice) }"
-								ng-click="login.setTag(tag.indice)">
-									{{tag.name}}
-								</a>
-							</div> <!-- fin del repeat -->
-						</div> <!-- tag card list -->
-							
-						
-    	    </div> <!-- show div -->
-   			</ion-content>
-				<ion-footer-bar class="bar-calm " 
-				ng-click="login.back()" ng-hide="login.showLogin">
-					<div class="title"> Logout </div>
-				</ion-footer-bar>
-
-    	</ion-pane>
-		<!--/div--> <!-- controller div -->
+    <ion-nav-view></ion-nav-view>
   </body>
 </html>
