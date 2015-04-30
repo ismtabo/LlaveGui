@@ -1,0 +1,58 @@
+<ion-nav-view view-title="Llave">
+	<ion-content class="has-header">
+		<div ng-hide="showLogin">
+			<ion-refresher
+			pulling-text="Tira para actualizar..."
+			on-refresh="whoOwn()">
+			</ion-refresher>
+			<div class="card" ng-show="verbose">
+				<div class="item item-text-wrap">
+					<h2> Usuario : {{user}} </h2>
+					<h2> Password : {{passwd}} </h2>
+					<h3> Resultado : {{res}} </h3>
+				</div>
+			</div> <!-- card info verbose-->
+			<div class="card">
+				<div class="item item-text-wrap">
+					<h1>
+					La llave la tiene {{ownerKey}} {{getTagFormat()}}
+					</h1>
+				</div>
+			</div> <!-- card info owner-->
+			<button
+			ng-show="showCogerHideDejar == true &&
+			showCogerHideDejar != null"
+			class="button button-block button-energized"
+			ng-click="getKey()">
+			Coger llave
+			</button><!-- coger llave-->
+			<button
+			ng-show="showCogerHideDejar == false &&
+			showCogerHideDejar != null"
+			class="button button-block button-assertive"
+			ng-click="unGetKey()">
+			Dejar llave
+			</button> <!-- dejar llave-->
+			<div class="card list"
+			ng-show="showCogerHideDejar == false &&
+			showCogerHideDejar != null">	
+				<div class="item item-divider energized" 
+				style="background-color:blue" >
+					¿Donde estas
+				</div>
+				<div ng-repeat="tag in tagContent">
+					<a class="item" href="#" 
+					ng-class="{ active:isSet(tag.indice) }"
+					ng-click="setTag(tag.indice)">
+					{{tag.name}}
+					</a>
+				</div> <!-- fin del repeat -->
+			</div><!-- tag card list -->
+		</div> <!-- show div -->
+	</ion-content>
+
+	<ion-footer-bar class="bar-calm " 
+	ng-click="back()" ng-hide="showLogin">
+		<div class="title"> Logout </div>
+	</ion-footer-bar>
+</ion-nav-view>
